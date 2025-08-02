@@ -7,6 +7,7 @@
 html{
     font-size: 10px;
     font-family: 'Montserrat',sans-serif;
+    scroll-behavior: smooth;
 }
 a{
     text-decoration: none;
@@ -86,6 +87,7 @@ img{
 #header .header{
     min-height: 8vh;
     background-color: rgba(31,30,30,0.24);
+    transition: .3s ease background-color;
 }
 #header .nav-bar{
     display: flex;
@@ -103,7 +105,7 @@ img{
     background-color: rgb(31,30, 30);
     width: 100vw;
     height: 100vh;
-    left: 0;
+    left: 100%;
     top: 0;
     display: flex;
     flex-direction: column;
@@ -111,6 +113,11 @@ img{
     align-items: center;
     z-index: 1;
     overflow-x: hidden;
+    transition: .7s ease left;
+}
+
+#header .nav-list ul.active{
+    left: 0;
 }
 
 #header .nav-list ul a{
@@ -141,7 +148,66 @@ img{
     letter-spacing: initial;
 }
 
+#header .hamb{
+    height: 60px;
+    width: 60px;
+    display: inline-block;
+    border: 3px solid white;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    cursor:pointer ;
+    transform: scale(.8);
+    margin-right:20px;
+}
+#header .hamb .bar{
+    height: 2px;
+    width: 30px;
+    position: relative;
+    background-color: white;
+    z-index: -1;
+}
+#header .hamb::after{
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    border: 3px solid white;
+    animation: hamb_puls 1s ease infinite;
+}
 
+#header .hamb .bar::after,
+#header .hamb .bar::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    background-color: white;
+    transition: .3s ease ;
+    transition-property: top,bottom;
+}
+
+
+
+
+#header .hamb .bar::after {
+    top: 8px;
+}
+#header .hamb .bar::before {
+    bottom: 8px;
+}
+
+#header .hamb.active .bar::after {
+    top: 0;
+}
+#header .hamb.active .bar::before {
+    bottom: 0;
+}
 
 
 
@@ -487,6 +553,18 @@ transition: .3s ease filter;
 
 
 
+@keyframes hamb_puls{
+    0%{
+        opacity: 1;
+        transform: scale(1);
+    }
+    100%{
+        opacity: 0;
+        transform: scale(1.4);
+    }
+}
+
+
 @keyframes text_reveal_box{
     50%{
         width: 100%;
@@ -592,11 +670,32 @@ transition: .3s ease filter;
             text-align: left;
             padding-left: 20px;
           }
-@media only screen and(min-width:1200px) {
-    
-    #services .service-bottom .service-item{
-        flex-basis: 22%;
-        margin: 1.5%;
-    }
+@media only screen and (min-width: 1200px) {
+
+   #header .hamb{
+      display: none;
+   }
+   #header .nav-list ul{
+      position: initial;
+      display: block;
+      height: auto;
+      width: fit-content;
+      background: transparent;
+   }
+
+   #header .nav-list ul li{
+      display: inline-block;
+   }
+   #header .nav-list ul li a{
+      font-size: 1.8rem;
+   }
+   #header .nav-list ul a:after{
+      display: none;
+   }
+
+	#services .service-bottom .service-item {
+		flex-basis: 22%;
+		margin: 1.5%;
+	}
 }
 }
